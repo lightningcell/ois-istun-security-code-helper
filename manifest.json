@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "OIS ISTUN Security Code Helper",
+  "version": "1.0",
+  "description": "Automates the security code input process for ois.istun.edu.tr.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["https://ois.istun.edu.tr/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://ois.istun.edu.tr/auth/*"],
+      "js": ["styles-injector.js", "content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  }
+}
