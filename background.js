@@ -4,14 +4,15 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "saveCode") {
-    chrome.storage.local.set({ dailyCode: message.code }, () => {
-      console.log("Daily code saved:", message.code);
+    const currentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    chrome.storage.local.set({ dailyCode: message.code, dailyCodeDate: currentDate }, () => {
+      console.log("Daily code and date saved:", message.code, currentDate);
       sendResponse({ status: "success" });
     });
     return true;
   } else if (message.type === "getCode") {
-    chrome.storage.local.get("dailyCode", (data) => {
-      sendResponse({ code: data.dailyCode || null });
+    chrome.storage.local.get(["dailyCode", "dailyCodeDate"], (data) => {
+      sendResponse({ code: data.dailyCode || null, date: data.dailyCodeDate || null });
     });
     return true;
   }

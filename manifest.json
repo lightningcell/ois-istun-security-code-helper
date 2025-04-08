@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "OIS ISTUN Security Code Helper",
+  "name": "OIS ISTUN Security Code Hater",
   "version": "1.0",
   "description": "Automates the security code input process for ois.istun.edu.tr.",
   "permissions": ["storage", "activeTab"],
@@ -10,7 +10,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://ois.istun.edu.tr/auth/*"],
+      "matches": ["https://ois.istun.edu.tr/*"],
       "js": ["styles-injector.js", "content.js"]
     }
   ],

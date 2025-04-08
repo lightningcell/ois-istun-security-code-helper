@@ -1,4 +1,3 @@
-// Reusable function to show countdown and click a button
 function showCountdownAndClickButton(buttonSelector) {
   const countdownElement = document.createElement("div");
   countdownElement.id = "countdown";
@@ -20,7 +19,7 @@ function showCountdownAndClickButton(buttonSelector) {
   }, 1000);
 }
 
-// Reusable function to handle button click with optional countdown
+
 function clickButtonWithOptionalCountdown(buttonSelector, showCountdown) {
   if (showCountdown) {
     showCountdownAndClickButton(buttonSelector);
@@ -29,18 +28,18 @@ function clickButtonWithOptionalCountdown(buttonSelector, showCountdown) {
   }
 }
 
-// Add a MutationObserver to handle potential delays in DOM updates
+
 function waitForTextAndClickButton(text, buttonSelector) {
   const observer = new MutationObserver((mutations, obs) => {
     const targetDiv = Array.from(document.querySelectorAll("div"))
       .find(div => div.textContent.includes(text));
 
     if (targetDiv) {
-      console.log("Target div found:", targetDiv.textContent);
-      obs.disconnect(); // Stop observing once the target is found
+      observer.disconnect(); // Stop observing once the target is found
       chrome.storage.local.get("redirectToggle", (data) => {
         const showCountdown = data.redirectToggle !== false; // Default to true if not set
         clickButtonWithOptionalCountdown(buttonSelector, showCountdown);
+        console.debug("Target div found and button clicked:", targetDiv.textContent);
       });
     }
   });
@@ -48,29 +47,38 @@ function waitForTextAndClickButton(text, buttonSelector) {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
+function getCurrentDate() {
+  const now = new Date();
+  return now.toISOString().split('T')[0];
+}
+
 if (window.location.href.includes("/auth/guvenlik")) {
   chrome.runtime.sendMessage({ type: "getCode" }, (response) => {
-    if (response.code) {
-      const inputField = document.getElementById("akilli_sifre");
-      inputField.type = "text"; // Change input type to text
-      inputField.value = response.code;
+    if (response.code && response.date) {
+      const savedDate = response.date;
+      const currentDate = getCurrentDate();
 
-      chrome.storage.local.get("redirectToggle", (data) => {
-        const showCountdown = data.redirectToggle !== false; // Default to true if not set
-        clickButtonWithOptionalCountdown("input[type='submit']", showCountdown);
-      });
+      if (savedDate === currentDate) {
+        const inputField = document.getElementById("akilli_sifre");
+        inputField.type = "text";
+        inputField.value = response.code;
+
+        chrome.storage.local.get("redirectToggle", (data) => {
+          const showCountdown = data.redirectToggle !== false;
+          clickButtonWithOptionalCountdown("input[type='submit']", showCountdown);
+        });
+      } else {
+        console.log("The saved code is outdated and will not be auto-filled.");
+      }
     }
   });
 
   document.querySelector("input[type='submit']").addEventListener("click", () => {
     const code = document.getElementById("akilli_sifre").value;
-    chrome.runtime.sendMessage({ type: "saveCode", code });
+    const currentDate = getCurrentDate();
+    chrome.runtime.sendMessage({ type: "saveCode", code, date: currentDate });
   });
-} else if (window.location.href === "https://ois.istun.edu.tr/") {
-  chrome.storage.local.get("redirectToggle", (data) => {
-    const showCountdown = data.redirectToggle !== false; // Default to true if not set
-    clickButtonWithOptionalCountdown("input[type='button']", showCountdown);
-  });
-} else {
+}
+else if (window.location.href === "https://ois.istun.edu.tr/") {
   waitForTextAndClickButton("Adres doğrulama resmi.", "input[type='button']");
 }
