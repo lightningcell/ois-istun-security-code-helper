@@ -188,3 +188,10 @@ input:checked + .slider:before {
   border-style: solid;
   border-color: transparent transparent #333 transparent;
 }
+
+.popup-options-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start ;
+}

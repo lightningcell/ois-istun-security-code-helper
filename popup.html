@@ -1,45 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>OIS Helper</title>
-  <link rel="stylesheet" href="style/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="src/popup.js" defer></script>
-</head>
-<body>
-  <div class="popup-container">
-    <h1 class="popup-title">Security Code Hater - İSTÜN</h1>
-    <div class="popup-options">
-      <label class="switch">
-        <input type="checkbox" id="redirectToggle">
-        <span class="slider"></span>
-      </label>
-      <span>Yönlendirirken Bekle</span>
+  <head>
+    <meta charset="UTF-8" />
+    <title>OIS Helper</title>
+    <link rel="stylesheet" href="style/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="src/popup.js" defer></script>
+  </head>
+  <body>
+    <div class="popup-container">
+      <h1 class="popup-title">Security Code Hater - İSTÜN</h1>
+      <div class="popup-options-container">
+        <div class="popup-options">
+          <label class="switch">
+            <input type="checkbox" id="activeToggle" />
+            <span class="slider"></span>
+          </label>
+          <span>Aktif</span>
+          <i class="fas fa-info-circle tooltip-icon" id="activeInfo"></i>
+          <div class="tooltip" id="activeTooltip">
+            Olası hatalarda uzantıyı durdurmak için kapatabilirsiniz.
+          </div>
+        </div>
+        <div class="popup-options">
+          <label class="switch">
+            <input type="checkbox" id="redirectToggle" />
+            <span class="slider"></span>
+          </label>
+          <span>Yönlendirirken Bekle</span>
+        </div>
+        <div class="popup-options">
+          <label class="switch">
+            <input type="checkbox" id="panelToggle" />
+            <span class="slider"></span>
+          </label>
+          <span>Panoda Göster</span>
+          <i class="fas fa-info-circle tooltip-icon" id="panelInfo"></i>
+          <div class="tooltip" id="panelTooltip">
+            Bu seçenek aktif ise otomatik geçiş yapılmaz. Yalnızca kod giriş
+            sayfasının üstünde gözükür.
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="popup-options">
-      <label class="switch">
-        <input type="checkbox" id="panelToggle">
-        <span class="slider"></span>
-      </label>
-      <span>Panoda Göster</span>
-      <i class="fas fa-info-circle tooltip-icon" id="panelInfo"></i>
-      <div class="tooltip" id="panelTooltip">Bu seçenek aktif ise otomatik geçiş yapılmaz. Yalnızca kod giriş sayfasının üstünde gözükür.</div>
-    </div>
-  </div>
-  <footer class="popup-footer">
-    <p>Developed by <strong>Hamit Şimşek</strong></p>
-    <div class="social-icons">
-      <a href="https://instagram.com/" target="_blank" class="icon instagram" aria-label="Instagram"></a>
-      <a href="https://www.linkedin.com/in/hamitlightning/" target="_blank" class="icon linkedin" aria-label="LinkedIn"></a>
-      <a href="https://github.com/lightningcell" target="_blank" class="icon github" aria-label="GitHub"></a>
-    </div>
-    <div class="buy-coffee">
-      <a href="https://buymeacoffee.com/lightningcell" target="_blank" class="coffee-button">
-        <span class="coffee-icon"></span>
-        <span>Buy Me a Coffee</span>
-      </a>
-    </div>
-  </footer>
-</body>
+    <footer class="popup-footer">
+      <p>Developed by <strong>Hamit Şimşek</strong></p>
+      <div class="social-icons">
+        <a
+          href="https://instagram.com/"
+          target="_blank"
+          class="icon instagram"
+          aria-label="Instagram"
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/hamitlightning/"
+          target="_blank"
+          class="icon linkedin"
+          aria-label="LinkedIn"
+        ></a>
+        <a
+          href="https://github.com/lightningcell"
+          target="_blank"
+          class="icon github"
+          aria-label="GitHub"
+        ></a>
+      </div>
+      <div class="buy-coffee">
+        <a
+          href="https://buymeacoffee.com/lightningcell"
+          target="_blank"
+          class="coffee-button"
+        >
+          <span class="coffee-icon"></span>
+          <span>Buy Me a Coffee</span>
+        </a>
+      </div>
+    </footer>
+  </body>
 </html>

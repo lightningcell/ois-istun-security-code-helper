@@ -36,7 +36,10 @@ function waitForTextAndClickButton(text, buttonSelector) {
 
     if (targetDiv) {
       observer.disconnect(); // Stop observing once the target is found
-      chrome.storage.local.get("redirectToggle", (data) => {
+      chrome.storage.local.get(["redirectToggle", "isActive"], (data) => {
+        const isActive = data.isActive !== false; // Default to true if not set
+        if (!isActive) return; // Skip if extension is not active
+
         const showCountdown = data.redirectToggle !== false; // Default to true if not set
         clickButtonWithOptionalCountdown(buttonSelector, showCountdown);
         console.debug("Target div found and button clicked:", targetDiv.textContent);
@@ -127,43 +130,62 @@ function showSecurityCodePanel(code, isCurrent) {
   document.body.appendChild(panelElement);
 }
 
-if (window.location.href.includes("/auth/guvenlik")) {
-  chrome.runtime.sendMessage({ type: "getCode" }, (response) => {
-    if (response.code && response.date) {
-      const savedDate = response.date;
-      const currentDate = getCurrentDate();
-      const isCurrent = savedDate === currentDate;
+// First check if extension is active before running any actions
+chrome.runtime.sendMessage({ type: "checkActive" }, (response) => {
+  if (response && response.isActive === false) {
+    console.log("Extension is currently disabled");
+    return; // Exit if extension is not active
+  }
+  
+  if (window.location.href.includes("/auth/guvenlik")) {
+    chrome.runtime.sendMessage({ type: "getCode" }, (response) => {
+      // If extension isn't active, skip all processing
+      if (response && response.isActive === false) {
+        console.log("Extension is currently disabled");
+        return;
+      }
+      
+      if (response && response.code && response.date) {
+        const savedDate = response.date;
+        const currentDate = getCurrentDate();
+        const isCurrent = savedDate === currentDate;
 
-      // Check panel toggle setting
-      chrome.storage.local.get("panelToggle", (data) => {
-        const showPanel = data.panelToggle !== false; // Default to true if not set
-        
-        if (showPanel) {
-          // Show panel and don't auto-fill if panel toggle is enabled
-          showSecurityCodePanel(response.code, isCurrent);
-        } else if (isCurrent) {
-          // Auto-fill and submit if code is current and panel toggle is disabled
-          const inputField = document.getElementById("akilli_sifre");
-          inputField.type = "text";
-          inputField.value = response.code;
+        // Check panel toggle setting
+        chrome.storage.local.get("panelToggle", (data) => {
+          const showPanel = data.panelToggle !== false; // Default to true if not set
+          
+          if (showPanel) {
+            // Show panel and don't auto-fill if panel toggle is enabled
+            showSecurityCodePanel(response.code, isCurrent);
+          } else if (isCurrent) {
+            // Auto-fill and submit if code is current and panel toggle is disabled
+            const inputField = document.getElementById("akilli_sifre");
+            inputField.type = "text";
+            inputField.value = response.code;
 
-          chrome.storage.local.get("redirectToggle", (data) => {
-            const showCountdown = data.redirectToggle !== false;
-            clickButtonWithOptionalCountdown("input[type='submit']", showCountdown);
-          });
-        } else {
-          console.log("The saved code is outdated and will not be auto-filled.");
+            chrome.storage.local.get("redirectToggle", (data) => {
+              const showCountdown = data.redirectToggle !== false;
+              clickButtonWithOptionalCountdown("input[type='submit']", showCountdown);
+            });
+          } else {
+            console.log("The saved code is outdated and will not be auto-filled.");
+          }
+        });
+      }
+    });
+
+    // Only add these event listeners if the extension is active
+    document.querySelector("input[type='submit']").addEventListener("click", () => {
+      chrome.runtime.sendMessage({ type: "checkActive" }, (response) => {
+        if (response && response.isActive !== false) {
+          const code = document.getElementById("akilli_sifre").value;
+          const currentDate = getCurrentDate();
+          chrome.runtime.sendMessage({ type: "saveCode", code, date: currentDate });
         }
       });
-    }
-  });
-
-  document.querySelector("input[type='submit']").addEventListener("click", () => {
-    const code = document.getElementById("akilli_sifre").value;
-    const currentDate = getCurrentDate();
-    chrome.runtime.sendMessage({ type: "saveCode", code, date: currentDate });
-  });
-}
-else if (window.location.href === "https://ois.istun.edu.tr/") {
-  waitForTextAndClickButton("Adres doğrulama resmi.", "input[type='button']");
-}
+    });
+  }
+  else if (window.location.href === "https://ois.istun.edu.tr/") {
+    waitForTextAndClickButton("Adres doğrulama resmi.", "input[type='button']");
+  }
+});
