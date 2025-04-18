@@ -153,3 +153,38 @@ input:checked + .slider:before {
   text-align: center;
   max-width: 80%;
 }
+
+/* Tooltip styles */
+.tooltip-icon {
+  margin-left: 8px;
+  color: #666;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  z-index: 100;
+  width: 200px;
+  font-size: 12px;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 5px 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}

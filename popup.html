@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>OIS Helper</title>
   <link rel="stylesheet" href="style/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="src/popup.js" defer></script>
 </head>
 <body>
@@ -15,6 +16,15 @@
         <span class="slider"></span>
       </label>
       <span>Yönlendirirken Bekle</span>
+    </div>
+    <div class="popup-options">
+      <label class="switch">
+        <input type="checkbox" id="panelToggle">
+        <span class="slider"></span>
+      </label>
+      <span>Panoda Göster</span>
+      <i class="fas fa-info-circle tooltip-icon" id="panelInfo"></i>
+      <div class="tooltip" id="panelTooltip">Bu seçenek aktif ise otomatik geçiş yapılmaz. Yalnızca kod giriş sayfasının üstünde gözükür.</div>
     </div>
   </div>
   <footer class="popup-footer">
