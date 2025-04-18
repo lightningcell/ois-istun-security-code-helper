@@ -1,20 +1,15 @@
-# i-hate-ois-istun-security-code
+# I Hate <span style="color: #bd1622;"> OİS İSTÜN </span> Security Code
 
-## For ISTUN Students
-Why are there so many security checks? Calm down, I'm saving you, my ISTUN friends. See the usage below. 
+## For <span style="color: #bd1622;"> İSTÜN </span> Students
+Why are there so many security checks? Calm down, I'm saving you, my <strong style="font-size: 16px; color: #bd1622;"> <strong style="font-size: 16px; color: #bd1622;"> İSTÜN </strong> </strong> friends. See the usage below. 
 
-## Project Overview
-This project is designed to simplify and enhance the user experience by addressing the challenges posed by excessive security checks. It aims to streamline processes and provide a more efficient solution for ISTUN students.
-
-## Features
-- Simplifies security checks.
-- Enhances user experience.
-- Provides a lightweight and efficient solution.
+## How It Works?
+When we want to log in to the OIS system a lot during the day, we have to enter the daily code each time. With Code Hater, you only need to do this once a day. Once you enter the code correctly, it will be automatically filled in for your next logins. 
 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/i-hate-ois-istun-security-code.git
+   git clone https://github.com/lightningcell/i-hate-ois-istun-security-code.git
    ```
 2. Navigate to the project directory:
    ```bash
