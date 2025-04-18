@@ -6,12 +6,12 @@
   "permissions": ["storage", "activeTab"],
   "host_permissions": ["https://ois.istun.edu.tr/*"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background.js"
   },
   "content_scripts": [
     {
       "matches": ["https://ois.istun.edu.tr/*"],
-      "js": ["styles-injector.js", "content.js"]
+      "js": ["src/styles-injector.js", "src/content.js"]
     }
   ],
   "action": {

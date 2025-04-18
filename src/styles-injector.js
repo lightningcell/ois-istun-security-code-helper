@@ -11,7 +11,7 @@ const styleContent = `
     border-radius: 10px;
     text-align: center;
     z-index: 1000;
-    min-width: 200px; /* Minimum width for the countdown box */
+    min-width: 200px; 
   }
 `;
 
