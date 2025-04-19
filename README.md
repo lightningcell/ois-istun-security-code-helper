@@ -1,19 +1,19 @@
-# I Hate OİS İSTÜN Security Code
+# OİS İSTÜN Security Code Helper
 
 ## For İSTÜN Students
 Why are there so many security checks? Calm down, I'm saving you, my İSTÜN friends. See the usage below.
 
 ## How It Works?
-When we want to log in to the OIS system a lot during the day, we have to enter the daily code each time. With Code Hater, you only need to do this once a day. Once you enter the code correctly, it will be automatically filled in for your next logins.
+When we want to log in to the OIS system a lot during the day, we have to enter the daily code each time. With Code Helper, you only need to do this once a day. Once you enter the code correctly, it will be automatically filled in for your next logins.
 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/lightningcell/i-hate-ois-istun-security-code.git
+   git clone https://github.com/lightningcell/ois-istun-security-code-helper.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd i-hate-ois-istun-security-code
+   cd ois-istun-security-code-helper
    ```
 3. Follow the specific setup instructions for your environment.
 
