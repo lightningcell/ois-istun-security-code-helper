@@ -130,12 +130,69 @@ function showSecurityCodePanel(code, isCurrent) {
   document.body.appendChild(panelElement);
 }
 
+// Function to check if the current page has an error message
+function hasErrorMessage() {
+  const errorMessages = Array.from(document.querySelectorAll("p"));
+  return errorMessages.some(p => p.textContent.includes("Şifreyi yanlış girdiniz."));
+}
+
 // First check if extension is active before running any actions
 chrome.runtime.sendMessage({ type: "checkActive" }, (response) => {
   if (response && response.isActive === false) {
     console.log("Extension is currently disabled");
     return; // Exit if extension is not active
   }
+
+  // Check for pending code validation
+  chrome.storage.local.get(["pendingSecurityCode", "securityCode", "securityCodeValidated"], (data) => {
+    // Check if there's a manually edited code that needs validation
+    if (data.securityCode && data.securityCodeValidated !== true) {
+      console.log("Found manually edited security code that needs validation");
+      // Store it as pending
+      chrome.storage.local.set({ 
+        pendingSecurityCode: data.securityCode,
+        // Mark as needing validation
+        securityCodeValidated: false
+      });
+    }
+    
+    if (data.pendingSecurityCode) {
+      console.log("Found pending security code to validate");
+      
+      // We're on the security code page
+      if (window.location.href.includes("/auth/guvenlik")) {
+        // Check if there's an error message indicating wrong code
+        if (hasErrorMessage()) {
+          console.log("Wrong security code detected. Clearing pending code.");
+          chrome.storage.local.remove("pendingSecurityCode");
+        } else {
+          // We're on the security code page but no error - user probably just navigated here
+          // We'll try to validate this code by entering it
+          const inputField = document.getElementById("akilli_sifre");
+          if (inputField) {
+            inputField.type = "text";
+            inputField.value = data.pendingSecurityCode;
+          }
+        }
+      } 
+      // We're on the address verification page - code was correct
+      else if (window.location.href === "https://ois.istun.edu.tr/") {
+        console.log("Security code was correct. Saving to permanent storage.");
+        // Save the code permanently
+        const pendingCode = data.pendingSecurityCode;
+        const currentDate = getCurrentDate();
+        chrome.runtime.sendMessage({
+          type: "saveCode",
+          code: pendingCode,
+          date: currentDate
+        });
+        // Mark the code as validated
+        chrome.storage.local.set({ securityCodeValidated: true });
+        // Clear the pending status
+        chrome.storage.local.remove("pendingSecurityCode");
+      }
+    }
+  });
   
   if (window.location.href.includes("/auth/guvenlik")) {
     chrome.runtime.sendMessage({ type: "getCode" }, (response) => {
@@ -145,42 +202,80 @@ chrome.runtime.sendMessage({ type: "checkActive" }, (response) => {
         return;
       }
       
+      // Only use a code if it exists and is marked as validated or current
       if (response && response.code && response.date) {
         const savedDate = response.date;
         const currentDate = getCurrentDate();
         const isCurrent = savedDate === currentDate;
-
-        // Check panel toggle setting
-        chrome.storage.local.get("panelToggle", (data) => {
-          const showPanel = data.panelToggle !== false; // Default to true if not set
+        
+        chrome.storage.local.get("securityCodeValidated", (validData) => {
+          const isValidated = validData.securityCodeValidated === true;
           
-          if (showPanel) {
-            // Show panel and don't auto-fill if panel toggle is enabled
-            showSecurityCodePanel(response.code, isCurrent);
-          } else if (isCurrent) {
-            // Auto-fill and submit if code is current and panel toggle is disabled
-            const inputField = document.getElementById("akilli_sifre");
-            inputField.type = "text";
-            inputField.value = response.code;
+          // Only use the code if it's either validated or we're just displaying it
+          if (isValidated || isCurrent) {
+            // Check panel toggle setting
+            chrome.storage.local.get("panelToggle", (data) => {
+              const showPanel = data.panelToggle !== false; // Default to true if not set
+              
+              if (showPanel) {
+                // Show panel and don't auto-fill if panel toggle is enabled
+                showSecurityCodePanel(response.code, isCurrent);
+              } else if (isCurrent && isValidated) {
+                // Auto-fill and submit if code is current, validated, and panel toggle is disabled
+                const inputField = document.getElementById("akilli_sifre");
+                inputField.type = "text";
+                inputField.value = response.code;
 
-            chrome.storage.local.get("redirectToggle", (data) => {
-              const showCountdown = data.redirectToggle !== false;
-              clickButtonWithOptionalCountdown("input[type='submit']", showCountdown);
+                chrome.storage.local.get("redirectToggle", (data) => {
+                  const showCountdown = data.redirectToggle !== false;
+                  clickButtonWithOptionalCountdown("input[type='submit']", showCountdown);
+                });
+              } else if (isCurrent) {
+                // If code is current but not validated, let's enter it but without auto-submit
+                // This gives a chance to validate manually entered codes
+                console.log("Current code needs validation. Entering it but not auto-submitting.");
+                const inputField = document.getElementById("akilli_sifre");
+                inputField.type = "text";
+                inputField.value = response.code;
+                // Store as pending for validation
+                chrome.storage.local.set({ 
+                  pendingSecurityCode: response.code
+                });
+              } else {
+                console.log("The saved code is outdated and will not be auto-filled.");
+              }
             });
           } else {
-            console.log("The saved code is outdated and will not be auto-filled.");
+            console.log("Code exists but needs validation before auto-submitting.");
+            // Store as pending for validation
+            chrome.storage.local.set({ 
+              pendingSecurityCode: response.code,
+              // Mark as needing validation  
+              securityCodeValidated: false
+            });
+            // Enter the code but don't submit automatically
+            const inputField = document.getElementById("akilli_sifre");
+            if (inputField) {
+              inputField.type = "text";
+              inputField.value = response.code;
+            }
           }
         });
       }
     });
 
-    // Only add these event listeners if the extension is active
-    document.querySelector("input[type='submit']").addEventListener("click", () => {
+    // Add event listener to the form submission
+    document.querySelector("form").addEventListener("submit", () => {
       chrome.runtime.sendMessage({ type: "checkActive" }, (response) => {
         if (response && response.isActive !== false) {
-          const code = document.getElementById("akilli_sifre").value;
-          const currentDate = getCurrentDate();
-          chrome.runtime.sendMessage({ type: "saveCode", code, date: currentDate });
+          // Store the entered code as pending in chrome.storage
+          const enteredCode = document.getElementById("akilli_sifre").value;
+          console.log("Storing pending security code:", enteredCode);
+          chrome.storage.local.set({ 
+            pendingSecurityCode: enteredCode,
+            // Mark as needing validation
+            securityCodeValidated: false
+          });
         }
       });
     });
