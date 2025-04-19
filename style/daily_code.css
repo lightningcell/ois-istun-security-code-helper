@@ -1,0 +1,84 @@
+/* 1) Form container’ını yine card gibi düşün */
+.login-form {
+  background: #fff !important;
+  padding: 30px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07) !important;
+  max-width: 400px !important;
+  margin: 80px auto !important;
+  position: relative !important;
+}
+
+/* 2) Zend_Form DL reset & düzen */
+.login-form dl.zend_form {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 3) Label bölümü */
+.login-form .label_div {
+  margin-bottom: 6px !important;
+}
+.login-form .label_div label {
+  display: block !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+}
+
+/* 4) Input wrapper */
+.login-form .panel_items {
+  margin-bottom: 18px !important;
+}
+
+/* 5) Şifre input’u */
+.login-form .panel_items input[type="password"],
+.login-form .panel_items input[type="text"] {
+  all: unset !important;
+  display: block !important;
+  width: 100% !important;
+  padding: 12px 14px !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  box-sizing: border-box !important;
+}
+
+/* 6) Submit butonu */
+.login-form .panel_items_button {
+  text-align: center !important;
+  margin-top: 10px !important;
+}
+.login-form .panel_items_button input[type="submit"] {
+  all: unset !important;
+  display: inline-block !important;
+  background-color: #bf1925 !important;
+  color: #fff !important;
+  padding: 12px 24px !important;
+  font-size: 15px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+.login-form .panel_items_button input[type="submit"]:hover {
+  background-color: #a4161f !important;
+}
+
+/* 7) Alt metin/paragraf stili */
+.login-form p {
+  margin-top: 12px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: #555 !important;
+}
+.login-form p a {
+  color: #bf1925 !important;
+  text-decoration: underline !important;
+}
+
+/* 8) Kalın metni vurgula */
+.login-form b {
+  color: #333 !important;
+  font-weight: 600 !important;
+}

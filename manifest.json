@@ -11,7 +11,13 @@
   "content_scripts": [
     {
       "matches": ["https://ois.istun.edu.tr/*"],
-      "js": ["src/styles-injector.js", "src/content.js"]
+      "js": ["src/styles-injector.js", "src/theme-injector.js", "src/content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["style/*.css"],
+      "matches": ["https://ois.istun.edu.tr/*"]
     }
   ],
   "action": {

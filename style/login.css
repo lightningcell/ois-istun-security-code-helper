@@ -1,0 +1,202 @@
+
+body {
+    background-color: #f9f9f9 !important;
+    font-family: 'Segoe UI', sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.login-form {
+    max-width: 400px !important;
+    margin: 80px auto !important;
+    background-color: #ffffff !important;
+    padding: 40px 30px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08) !important;
+}
+
+.shaky {
+    position: relative !important;
+}
+
+.shaky img {
+    display: block !important;
+    margin: 0 auto 30px !important;
+    max-width: 160px !important;
+}
+
+.login-head label {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    margin-bottom: 10px !important;
+    display: block !important;
+}
+
+.btn-group .btn {
+    background-color: #e5e5e5 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    color: #333 !important;
+    margin-right: 8px !important;
+    transition: 0.3s ease !important;
+}
+
+.btn-group .btn:hover {
+    background-color: #d4d4d4 !important;
+}
+
+.btn-group .btn.active {
+    background-color: #bf1925 !important;
+    color: #ffffff !important;
+}
+
+.login-form .input-xlarge, .input-xlarge {
+    all: unset;
+    width: 100% !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    margin-bottom: 8px !important;
+    box-sizing: border-box !important;
+}
+
+label {
+    font-weight: 500 !important;
+    color: #444 !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+}
+
+.btn-success {
+    background-color: #bf1925 !important;
+    color: #fff !important;
+    border: none !important;
+    width: 100% !important;
+    padding: 12px !important;
+    font-size: 15px !important;
+    border-radius: 8px !important;
+    transition: 0.3s ease !important;
+}
+
+.btn-success:hover {
+    background-color: #a4161f !important;
+}
+
+.icon-eye-open {
+    position: absolute !important;
+    right: 8px !important;
+    top: 246px !important;
+    transform: translateY(-220%) !important;
+    cursor: pointer !important;
+    color: #888 !important;
+    font-size: 16px !important;
+}
+
+a.pull-right {
+    height: 16px;
+}
+
+#img_captcha {
+    width: 100px !important;
+    height: 40px !important;
+    border-radius: 4px !important;
+    margin: 6px 0px !important;
+}
+
+label.show1 {
+    display: none !important;
+}
+
+br {
+    display: none !important;
+}
+
+.pull-left input {
+    margin-top: 8px !important;
+    padding: 10px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    border: 1px solid #ccc !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.pass-reset {
+    margin-top: 14px !important;
+    font-size: 13px !important;
+    color: #bf1925 !important;
+}
+
+.align-right {
+    margin-top: 14px !important;
+    font-size: 13px !important;
+    text-align: right !important;
+}
+
+.lang .btn {
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    background-color: #f0f0f0 !important;
+    border: none !important;
+    margin-right: 5px !important;
+}
+
+.lang .btn.active {
+    background-color: #bf1925 !important;
+    color: white !important;
+}
+
+.well.white-bg {
+    background-color: #ffffff !important;
+    padding: 20px !important;
+    margin-top: 40px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    max-width: 400px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.well.white-bg ul {
+    padding-left: 0 !important;
+    list-style: none !important;
+}
+
+.well.white-bg li {
+    padding: 10px 0 !important;
+    border-bottom: 1px solid #eee !important;
+}
+
+.well.white-bg a {
+    color: #bf1925 !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+}
+
+.well.white-bg a:hover {
+    text-decoration: underline !important;
+}
+
+.icon-bullhorn {
+    margin-right: 6px !important;
+    color: #bf1925 !important;
+}
+
+/* Modal başlıklar */
+.modal-header {
+    background-color: #bf1925 !important;
+    color: white !important;
+    border-radius: 6px 6px 0 0 !important;
+    padding: 10px 15px !important;
+}
+
+.modal-body {
+    padding: 20px !important;
+    font-size: 14px !important;
+    color: #333 !important;
+}

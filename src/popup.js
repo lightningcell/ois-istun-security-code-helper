@@ -19,6 +19,13 @@ document.getElementById("panelToggle").addEventListener("change", (event) => {
   });
 });
 
+document.getElementById("themeToggle").addEventListener("change", (event) => {
+  const isChecked = event.target.checked;
+  chrome.storage.local.set({ themeToggle: isChecked }, () => {
+    console.log("Theme toggle updated:", isChecked);
+  });
+});
+
 // Tooltip functionality
 document.getElementById("activeInfo").addEventListener("mouseenter", () => {
   document.getElementById("activeTooltip").style.display = "block";
@@ -36,8 +43,16 @@ document.getElementById("panelInfo").addEventListener("mouseleave", () => {
   document.getElementById("panelTooltip").style.display = "none";
 });
 
+document.getElementById("themeInfo").addEventListener("mouseenter", () => {
+  document.getElementById("themeTooltip").style.display = "block";
+});
+
+document.getElementById("themeInfo").addEventListener("mouseleave", () => {
+  document.getElementById("themeTooltip").style.display = "none";
+});
+
 // Load the current state of the toggles when the popup is opened
-chrome.storage.local.get(["isActive", "redirectToggle", "panelToggle"], (data) => {
+chrome.storage.local.get(["isActive", "redirectToggle", "panelToggle", "themeToggle"], (data) => {
   const activeToggle = document.getElementById("activeToggle");
   activeToggle.checked = data.isActive !== false; // Default to true if not set
   
@@ -46,4 +61,7 @@ chrome.storage.local.get(["isActive", "redirectToggle", "panelToggle"], (data) =
   
   const panelToggle = document.getElementById("panelToggle");
   panelToggle.checked = data.panelToggle === true;
+  
+  const themeToggle = document.getElementById("themeToggle");
+  themeToggle.checked = data.themeToggle === true; // Default to false if not set
 });

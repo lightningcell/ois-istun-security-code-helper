@@ -1,0 +1,176 @@
+/* ––––– Genel Sayfa Yapısı ––––– */
+body {
+    all: unset;
+    background: #f5f5f5 !important;
+    font-family: 'Segoe UI', sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* ––––– Yan Menü (sidr) ––––– */
+  nav.sidr {
+    background: #ffffff !important;
+    width: 240px !important;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.08) !important;
+    padding: 20px 0 !important;
+  }
+  nav.sidr span {
+    display: block !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    padding: 12px 20px !important;
+  }
+  nav.sidr a {
+    display: block !important;
+    font-size: 13px !important;
+    color: #555 !important;
+    padding: 10px 20px !important;
+    text-decoration: none !important;
+    transition: background 0.2s !important;
+  }
+  nav.sidr a:hover {
+    background: #f0f0f0 !important;
+  }
+  
+  /* ––––– Üst Navbar ––––– */
+  .navbar-fixed-top {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e2e2 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+  }
+  .navbar-inner.align {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 10px 20px !important;
+  }
+  .navbar .brand img {
+    height: 32px !important;
+    vertical-align: middle !important;
+    margin-right: 10px !important;
+  }
+  .navbar .brand h1 {
+    display: inline-block !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
+    color: #bf1925 !important;
+  }
+  .navbar .main-search {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-left: 40px !important;
+  }
+  .navbar .main-search .input-xxlarge {
+    width: 260px !important;
+    padding: 6px 10px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+  }
+  .navbar .ara-button {
+    background: #bf1925 !important;
+    border: none !important;
+    color: #fff !important;
+    padding: 6px 10px !important;
+    border-radius: 0 4px 4px 0 !important;
+    cursor: pointer !important;
+  }
+  .navbar .session, .navbar .user-info {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    margin-left: 30px !important;
+    font-size: 13px !important;
+    color: #555 !important;
+  }
+  
+  /* ––––– Ana İçerik ve Widget Kartları ––––– */
+  .main {
+    padding: 80px 20px 20px 270px !important; /* sidelardan boşluk */
+  }
+  .main .span4 {
+    width: 31.333% !important;
+    margin-right: 1% !important;
+    float: left !important;
+    margin-bottom: 20px !important;
+    box-sizing: border-box !important;
+  }
+  .main .span4:nth-child(3n) {
+    margin-right: 0 !important;
+  }
+  .box {
+    background: #fff !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05) !important;
+    padding: 20px !important;
+  }
+  .box h2 {
+    font-size: 16px !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    color: #333 !important;
+    border-bottom: 1px solid #eee !important;
+    padding-bottom: 8px !important;
+  }
+  
+  /* ––––– Well / İç Listeler ––––– */
+  .well.white-bg {
+    background: #fafafa !important;
+    border-radius: 6px !important;
+    padding: 15px !important;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.03) !important;
+  }
+  .well.white-bg ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .well.white-bg li {
+    padding: 8px 0 !important;
+    border-bottom: 1px solid #eee !important;
+  }
+  .well.white-bg li:last-child {
+    border-bottom: none !important;
+  }
+  .well.white-bg a {
+    color: #bf1925 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+  }
+  .well.white-bg a:hover {
+    text-decoration: underline !important;
+  }
+  .icon-bullhorn, .icon-folder-close, .icon-user, .icon-envelope-alt {
+    color: #bf1925 !important;
+    margin-right: 6px !important;
+  }
+  
+  /* ––––– Tablo Stilleri (Dersler Muafiyet) ––––– */
+  .table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 10px !important;
+  }
+  .table th, .table td {
+    padding: 8px !important;
+    text-align: left !important;
+    border: 1px solid #ddd !important;
+    font-size: 14px !important;
+  }
+  .table th {
+    background: #f0f0f0 !important;
+    font-weight: 600 !important;
+  }
+  
+  /* ––––– Responsive Basit Düzen ––––– */
+  @media (max-width: 1024px) {
+    .main .span4 { width: 48% !important; margin-right: 2% !important; }
+    .main .span4:nth-child(2n) { margin-right: 0 !important; }
+  }
+  @media (max-width: 768px) {
+    nav.sidr { display: none !important; }
+    .navbar-fixed-top .main-search { display: none !important; }
+    .main { padding-left: 20px !important; }
+    .main .span4 { width: 100% !important; margin-right: 0 !important; }
+  }
+  
